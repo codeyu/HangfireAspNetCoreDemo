@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Hangfire;
+using Hangfire.Redis;
 namespace HangfireAspNetCoreDemo
 {
     public class Startup
@@ -29,8 +30,8 @@ namespace HangfireAspNetCoreDemo
         {
             // Add framework services.
             string sConnectionString = Configuration["Data:Hangfire:ConnectionString"];
-            services.AddHangfire(x => x.UseSqlServerStorage(sConnectionString));
-
+            //services.AddHangfire(x => x.UseSqlServerStorage(sConnectionString));
+            services.AddHangfire(x => x.UseStorage(new RedisStorage("127.0.0.1")));
             services.AddMvc();
         }
 
@@ -40,8 +41,12 @@ namespace HangfireAspNetCoreDemo
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-           
-            app.UseHangfireDashboard();
+            // Map the Dashboard to the root URL
+            app.UseHangfireDashboard("");
+            // Map to the '/dashboard' URL
+            //app.UseHangfireDashboard("/dashboard");
+            //default, Hangfire maps the dashboard to '/hangfire' URL
+            //app.UseHangfireDashboard();
             app.UseHangfireServer();
             app.UseMvc();
         }
