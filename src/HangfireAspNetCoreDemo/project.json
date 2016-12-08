@@ -15,7 +15,7 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Hangfire": "1.6.7",
-    "Hangfire.Redis.StackExchange": "1.6.7.5",
+    "Hangfire.Private.Redis.StackExchange": "1.0.0",
     "StackExchange.Redis": "1.1.608"
   },
 

@@ -31,7 +31,7 @@ namespace HangfireAspNetCoreDemo
             // Add framework services.
             string sConnectionString = Configuration["Data:Hangfire:ConnectionString"];
             //services.AddHangfire(x => x.UseSqlServerStorage(sConnectionString));
-            services.AddHangfire(x => x.UseStorage(new RedisStorage("127.0.0.1")));
+            services.AddHangfire(configuration => configuration.UseRedisStorage("127.0.0.1"));
             services.AddMvc();
         }
 
